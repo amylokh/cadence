@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-ink: #0b1930;
+  --color-ink-2: #142747;
+  --color-ink-3: #24395e;
+  --color-canvas: #f3f5f9;
+  --color-surface: #ffffff;
+  --color-line: #e2e7ef;
+  --color-line-2: #cfd6e2;
+  --color-text: #0f1b2d;
+  --color-muted: #56627a;
+  --color-faint: #8a94a6;
+
+  --color-brand: #2456e6;
+  --color-brand-dark: #1b44bd;
+  --color-brand-soft: #eaf0ff;
+  --color-pulse: #e5484d;
+
+  --color-good: #0d7f58;
+  --color-good-soft: #e2f5ec;
+  --color-warn: #9a5b00;
+  --color-warn-soft: #fff1d6;
+  --color-bad: #c22b33;
+  --color-bad-soft: #fde7e8;
+
+  --shadow-card: 0 1px 2px rgb(15 27 45 / 0.04), 0 4px 16px rgb(15 27 45 / 0.04);
+  --shadow-lift: 0 2px 4px rgb(15 27 45 / 0.06), 0 12px 32px rgb(15 27 45 / 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+}
+
+button:not(:disabled),
+[role="button"] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* The heartbeat line in the logo and the generation screen. */
+@keyframes trace {
+  from {
+    stroke-dashoffset: 120;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.trace {
+  stroke-dasharray: 120;
+  animation: trace 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+.shimmer {
+  background: linear-gradient(90deg, #eef1f6 25%, #f8f9fc 50%, #eef1f6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trace,
+  .shimmer {
+    animation: none;
+  }
+}
+
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
 }
